@@ -1,0 +1,147 @@
+.attempt-info-container {
+  width: 100%;
+  min-height: 90vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+}
+
+.attempt-info-container h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1b2b5c;
+  margin-bottom: 30px;
+}
+
+.attempt-info-container input {
+  width: 60%;
+  max-width: 500px;
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px solid #d0d7f0;
+  font-size: 16px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.attempt-info-container input:focus {
+  border-color: #4857d6;
+}
+
+.attempt-info-container button {
+  width: 220px;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  background: #4857d6;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.attempt-info-container button:hover {
+  background: #3a47b5;
+}
+
+.start-test-btn {
+  margin-top: 20px !important;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+/* ===== POPUP BACKDROP ===== */
+.snapshot-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+/* ===== POPUP BOX ===== */
+.popup-box {
+  width: 380px;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  border-top: 6px solid #3b82f6; /* nice smooth blue */
+}
+
+.popup-box h3 {
+  color: #1e3a8a;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ===== Image / Video Styling ===== */
+.popup-box video,
+.popup-box img {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #d0d7ff;
+  margin-top: 15px;
+}
+
+/* Button layout */
+.popup-btn-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ===== Buttons ===== */
+.blue-btn {
+  background: #3b82f6;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+.blue-btn:hover {
+  background: #1d4ed8;
+}
+
+.green-btn {
+  background: #10b981;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+.green-btn:hover {
+  background: #059669;
+}
+
+.close-btn {
+  background: #6b7280;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+.close-btn:hover {
+  background: #4b5563;
+}

@@ -1,0 +1,142 @@
+.navbar{
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.active {
+  border-bottom: 2px solid #4056a1;
+  padding-bottom: 3px;
+}
+
+
+.navbar .logo{
+  width: 150px;
+}
+
+.navbar-menu{
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  color: #49557e;
+  font-size: 18px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navbar button {
+  background: transparent;
+  font-size: 16px;
+  color: #49557e;
+  border: 1px solid rgb(186, 184, 248);
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.navbar button:hover {
+  background-color: #c0c8f0;
+}
+
+.navbar .active {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #49557e;
+}
+
+.navbar li{
+  cursor: pointer;
+}
+@media (max-width:1050px) {
+  .navbar   .logo {
+    width: 140px;
+  }
+  .navbar-menu{
+    gap: 20px;
+    font-size: 17px;
+  }
+  .navbar-right{
+    gap: 30px;
+  }
+  .navbar-right img{
+    width: 22px;
+  }
+  .navbar-right button{
+    padding: 8px 25px;
+  }
+}
+@media (max-width:900px) {
+  .navbar   .logo {
+    width: 120px;
+  }
+  .navbar-menu{
+    gap: 15px;
+    font-size: 16px;
+  }
+  .navbar-right{
+    gap: 20px;
+  }
+  .navbar-right img{
+    width: 20px;
+  }
+  .navbar-right button{
+    padding: 7px 20px;
+    font-size: 15px;
+  }
+}
+@media (max-width:750px) {
+  
+  .navbar-menu{
+   display: none;
+  }
+
+}
+  .navbar-user {
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar-username {
+  font-weight: 600;
+  color: #333;
+}
+
+.navbar-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  z-index: 10;
+}
+
+.dropdown-item,
+.logout-btn {
+  padding: 8px 12px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+.logout-btn {
+  color: red;
+}
+
+.logout-btn:hover {
+  background: #ffe8e8;
+}

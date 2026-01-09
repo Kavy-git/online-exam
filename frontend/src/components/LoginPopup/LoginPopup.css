@@ -1,0 +1,218 @@
+/* Entire popup white box */
+
+.login-box {
+    width: max(23vw, 330px);
+    background: white;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    animation: fadeIn 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+.login-popup{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #00000090;
+    display: grid;
+    place-items: center;
+
+}
+
+
+
+
+
+.login-popup-container {
+     width: 100%;
+     max-width: 330px;
+    color: #808080;
+    background-color: white;   /* FIX */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 0;                /* FIX */
+    font: 14px;
+    animation: fadeIn 0.5s;
+    min-height: 460px;
+    overflow: visible;
+    width: 100%;
+    padding: 25px 30px;
+
+}
+
+
+
+
+
+.login-popup-title{
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: black;
+
+}
+
+
+
+.login-popup-title img{
+
+    cursor: pointer;
+
+    width: 16px;
+
+}
+
+
+
+.login-popup-inputs{
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+
+
+.login-popup-inputs input{
+
+    outline: none;
+
+    border: 1px solid #c9c9c9;
+
+    padding: 10px;
+
+    border-radius: 4px;
+
+}
+
+
+
+.login-popup-container button{
+
+    border: none;
+
+    padding: 10px;
+
+    border-radius: 4px;
+
+    color: white;
+
+    background-color: #5254b1;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+}
+
+
+
+.login-popup-condition{
+
+    display: flex;
+
+    align-items: start;
+
+    gap: 8px;
+
+    margin-top: -15px;
+
+}
+
+
+
+.login-popup-condition input {
+
+  width: 16px;
+
+  height: 16px;
+
+  margin-top: 4px;
+
+  cursor: pointer;
+
+  accent-color: #5254b1;
+
+}
+
+.login-popup p span{
+
+    color: #5254b1;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+/* Ensure Google button rendered elements are visible */
+
+.g_id_onload, .g_id_signin, .g_id_signin > * {
+
+    display: block !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+}
+
+
+
+
+
+/* Google button inside the white box */
+
+.google-inside {
+
+    margin-top: 10px;
+
+    display: flex;
+
+    justify-content: center;
+    width: 100%;
+
+}
+.google-area.inside-popup {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 0.9rem;
+}
