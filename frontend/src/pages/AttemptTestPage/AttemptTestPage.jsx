@@ -80,7 +80,7 @@ useEffect(() => {
       }
 
       const res = await axios.get(
-        `http://localhost:4000/api/tests/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/tests/${id}`,
         
       );
 
@@ -196,7 +196,7 @@ useEffect(() => {
 
     try {
       const snap = await axios.get(
-  `http://localhost:4000/api/attempt/test/${id}/student/${reg}`,
+  `${import.meta.env.VITE_API_URL}/api/attempt/test/${id}/student/${reg}`,
   
 );
 
@@ -422,7 +422,7 @@ useEffect(() => {
     }
 
     // SEND ANSWERS
-    await axios.post("http://localhost:4000/api/answers/submit", {
+    await axios.post("${import.meta.env.VITE_API_URL}/api/answers/submit", {
       testId: id,
       name: localStorage.getItem("studentName"),
       regNo:

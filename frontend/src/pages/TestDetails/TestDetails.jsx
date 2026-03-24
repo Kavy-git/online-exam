@@ -15,7 +15,7 @@ const TestDetails = () => {
     if (!window.confirm("Are you sure you want to delete this test?")) return;
 
     try {
-      await axios.delete(`http://localhost:4000/api/tests/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/tests/${id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -104,7 +104,7 @@ Enter this code inside Zonline to attempt the test!
     try {
       // 1️⃣ Fetch Test
       const testRes = await axios.get(
-        `http://localhost:4000/api/tests/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/tests/${id}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -116,7 +116,7 @@ Enter this code inside Zonline to attempt the test!
 
       // 2️⃣ Fetch Answers
       const answersRes = await axios.get(
-        `http://localhost:4000/api/answers/byTest/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/answers/byTest/${id}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -126,7 +126,7 @@ Enter this code inside Zonline to attempt the test!
 
       // 3️⃣ Fetch Snapshots
       const snapshotsRes = await axios.get(
-        `http://localhost:4000/api/attempt/byTest/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/attempt/byTest/${id}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

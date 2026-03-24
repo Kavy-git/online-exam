@@ -32,7 +32,7 @@ const AttemptTest = () => {
 
   try {
     const res = await axios.get(
-  `http://localhost:4000/api/tests/${testCode}`,
+  `${import.meta.env.VITE_API_URL}/api/tests/${testCode}`,
  
 );
 

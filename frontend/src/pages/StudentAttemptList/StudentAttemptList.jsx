@@ -11,7 +11,7 @@ const StudentAttemptList = () => {
   const fetchAttempts = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/answers/byReg/${regNo}`
+        `${import.meta.env.VITE_API_URL}/api/answers/byReg/${regNo}`
       );
       setAttempts(res.data.attempts || []);
     } catch (err) {

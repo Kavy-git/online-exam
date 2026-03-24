@@ -19,7 +19,7 @@ const AttemptDetails = () => {
     try {
       // 1) Fetch attempt
       const attemptRes = await axios.get(
-        `http://localhost:4000/api/answers/${id}`
+        `${import.meta.env.VITE_API_URL}/api/answers/${id}`
       );
 
       const attemptData = attemptRes.data.attempt || attemptRes.data;
@@ -28,7 +28,7 @@ const AttemptDetails = () => {
       // 2) Fetch snapshot safely
       try {
         const snapRes = await axios.get(
-          `http://localhost:4000/api/attempt/test/${attemptData.testId}/student/${attemptData.regNo}`
+          `${import.meta.env.VITE_API_URL}/api/attempt/test/${attemptData.testId}/student/${attemptData.regNo}`
         );
         setSnapshot(snapRes.data.attempt?.snapshot || snapRes.data.snapshot);
       } catch (err) {
@@ -38,7 +38,7 @@ const AttemptDetails = () => {
       // 3) Fetch test safely
       try {
         const testRes = await axios.get(
-          `http://localhost:4000/api/tests/${attemptData.testId}`
+          `${import.meta.env.VITE_API_URL}/api/tests/${attemptData.testId}`
         );
         setTest(testRes.data.test || testRes.data);
       } catch (err) {

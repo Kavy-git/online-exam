@@ -25,7 +25,7 @@ const AccountPage = () => {
  const saveName = async () => {
   try {
     const res = await axios.put(
-      "http://localhost:4000/api/user/update-name",
+      "${import.meta.env.VITE_API_URL}/api/user/update-name",
       { name: newName },
       { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
     );
@@ -43,7 +43,7 @@ const AccountPage = () => {
   const savePassword = async () => {
   try {
     await axios.put(
-      "http://localhost:4000/api/user/update-password",
+      "${import.meta.env.VITE_API_URL}/api/user/update-password",
       { password: newPassword },
       { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
     );
@@ -62,7 +62,7 @@ const AccountPage = () => {
   }
 
   try {
-    await axios.delete("http://localhost:4000/api/user/delete", {
+    await axios.delete("${import.meta.env.VITE_API_URL}/api/user/delete", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

@@ -23,7 +23,7 @@ const AttemptInfo = () => {
   useEffect(() => {
     const fetchTest = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/tests/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tests/${id}`);
         const cam = res.data.test?.requireCameraMic?.toLowerCase() || "no";
 
         setRequireCameraMic(cam);
@@ -103,7 +103,7 @@ const AttemptInfo = () => {
     localStorage.setItem("testId", id);
 
     try {
-      await axios.post("http://localhost:4000/api/attempt", {
+      await axios.post("${import.meta.env.VITE_API_URL}/api/attempt", {
         testId: id,
         name,
         regNo,
