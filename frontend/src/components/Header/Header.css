@@ -3,7 +3,8 @@
     width: 100%;
     margin: 30px auto;
     background: url('/exam.png') no-repeat;
-    background-size: center;
+    background-size: cover;          /* ✅ FIX */
+    background-position: center;     /* ✅ ADD */
     position: relative;
 }
 
