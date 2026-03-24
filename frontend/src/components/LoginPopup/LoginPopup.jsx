@@ -37,7 +37,7 @@ const onLogin = async (e) => {
   // 🔥 LOGIN MODE
   if (currState === "Login") {
     try {
-      const res = await axios.post("${import.meta.env.VITE_API_URL}/api/user/login", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/login`, {
         email: data.email,
         password: data.password,
       });
@@ -69,7 +69,7 @@ navigate("/");
   // 🔥 SIGNUP MODE
   if (currState === "Sign Up") {
     try {
-      const res = await axios.post("${import.meta.env.VITE_API_URL}/api/user/register", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/register`, {
         name: data.name,
         email: data.email,
         password: data.password,
@@ -105,7 +105,7 @@ navigate("/");
       const credential = response.credential;
 
       const res = await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/user/google",
+        `${import.meta.env.VITE_API_URL}/api/user/google`,
         { credential }
       );
 

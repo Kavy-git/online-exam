@@ -46,7 +46,7 @@ PORT=4000
 ## 🌍 Usage
 
 Frontend: http://localhost:5173  
-Backend: ${import.meta.env.VITE_API_URL}  
+Backend: http://localhost:4000  
 
 ---
 
