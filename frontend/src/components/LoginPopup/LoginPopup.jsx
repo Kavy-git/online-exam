@@ -3,7 +3,7 @@ import './LoginPopup.css'
 import { assets } from '../../assets/assets'
 
 // 👉 ADD THESE
-import { GoogleLogin } from "@react-oauth/google";
+// {/* import { GoogleLogin } from "@react-oauth/google"; */}
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -197,13 +197,7 @@ navigate("/");
           <span onClick={() => setCurrState("Login")}>Login Here</span>
         </p>
       )}
-      {/* ⭐ GOOGLE LOGIN NOW INSIDE POPUP ⭐ */}
-      <div className="google-area inside-popup">
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleError}
-        />
-        </div>
+      {/* Google Login temporarily disabled */}
     </form>
 
    
