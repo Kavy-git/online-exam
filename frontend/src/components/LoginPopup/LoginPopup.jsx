@@ -3,7 +3,7 @@ import './LoginPopup.css'
 import { assets } from '../../assets/assets'
 
 // 👉 ADD THESE
-// {/* import { GoogleLogin } from "@react-oauth/google"; */}
+import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
