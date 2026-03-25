@@ -17,7 +17,7 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://online-exam-frontend-snowy.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
