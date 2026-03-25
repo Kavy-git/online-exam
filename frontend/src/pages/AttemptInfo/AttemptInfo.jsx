@@ -103,12 +103,20 @@ const AttemptInfo = () => {
     localStorage.setItem("testId", id);
 
     try {
-      await axios.post("${import.meta.env.VITE_API_URL}/api/attempt", {
-        testId: id,
-        name,
-        regNo,
-        snapshot,
-      });
+      await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/attempt`,
+  {
+    testId: id,
+    name,
+    regNo,
+    snapshot,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  }
+);
 
       navigate(`/attempt-test/${id}`);
     } catch (err) {

@@ -11,13 +11,16 @@ import answerRoutes from "./routes/answerRoutes.js"
 
 //config
 const app = express()
-const port = 4000
+const port = process.env.PORT || 4000;
 
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://online-exam-frontend-snowy.vercel.app"],
+  origin: [
+    "http://localhost:5173",
+    "https://online-exam-frontend-8rqz91lyg-kavy-gits-projects.vercel.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));

@@ -14,11 +14,11 @@ const Test = () => {
   // ---------------- FETCH CREATED TESTS ----------------
   const fetchCreatedTests = async () => {
     try {
-      const res = await axios.get("${import.meta.env.VITE_API_URL}/api/tests", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tests`, {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`
+  }
+})
 
       setTestsCreated(res.data.tests);
     } catch (err) {

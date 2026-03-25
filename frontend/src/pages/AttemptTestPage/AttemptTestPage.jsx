@@ -422,15 +422,24 @@ useEffect(() => {
     }
 
     // SEND ANSWERS
-    await axios.post("${import.meta.env.VITE_API_URL}/api/answers/submit", {
-      testId: id,
-      name: localStorage.getItem("studentName"),
-      regNo:
-        localStorage.getItem("regNoActual") || localStorage.getItem("regNo"),
-      answers,
-      warnings: warningLog, 
-     },
-  
+     // SEND ANSWERS
+const token = localStorage.getItem("token");
+
+await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/answers/submit`,
+  {
+    testId: id,
+    name: localStorage.getItem("studentName"),
+    regNo:
+      localStorage.getItem("regNoActual") || localStorage.getItem("regNo"),
+    answers,
+    warnings: warningLog,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
 );
 
     // SMALL DELAY TO ENSURE CAMERA RELEASE
