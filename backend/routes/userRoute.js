@@ -1,5 +1,5 @@
 import express from "express";
-
+import { googleLogin } from "../controllers/googleAuthController.js";
 
 import {
   loginUser,

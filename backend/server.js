@@ -6,7 +6,7 @@ import 'dotenv/config.js'
 import testRoutes from "./routes/testRoutes.js"
 import attemptRoutes from "./routes/attemptRoutes.js"
 import answerRoutes from "./routes/answerRoutes.js"
-
+import googleAuthRoutes from "./routes/googleAuthRoutes.js";
 
 
 //config
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://online-exam-frontend-8rqz91lyg-kavy-gits-projects.vercel.app"
+    "https://online-exam-frontend-snowy.vercel.app"
   ],
   credentials: true
 }));
@@ -32,6 +32,7 @@ app.use("/api/user", userRouter)
 app.use("/api/tests", testRoutes)
 app.use("/api/attempt", attemptRoutes)
 app.use("/api/answers", answerRoutes)
+app.use("/api/user", googleAuthRoutes);
 
 
 
