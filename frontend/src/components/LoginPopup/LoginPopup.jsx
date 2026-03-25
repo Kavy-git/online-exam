@@ -8,6 +8,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://online-exam-backend-k4ry.onrender.com";
+
 
 
 
@@ -37,7 +39,7 @@ const onLogin = async (e) => {
   // 🔥 LOGIN MODE
   if (currState === "Login") {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/login`, {
+      const res = await axios.post(`${API_URL}/api/user/login`, {
         email: data.email,
         password: data.password,
       });
@@ -69,7 +71,7 @@ navigate("/");
   // 🔥 SIGNUP MODE
   if (currState === "Sign Up") {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/register`, {
+      const res = await axios.post(`${API_URL}/api/user/register`, {
         name: data.name,
         email: data.email,
         password: data.password,
@@ -105,7 +107,7 @@ navigate("/");
       const credential = response.credential;
 
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/user/google`,
+        `${API_URL}/api/user/google`,
         { credential }
       );
 
@@ -197,7 +199,12 @@ navigate("/");
           <span onClick={() => setCurrState("Login")}>Login Here</span>
         </p>
       )}
-      {/* Google Login temporarily disabled */}
+      <div style={{ marginTop: "15px", textAlign: "center" }}>
+  <GoogleLogin
+    onSuccess={handleGoogleSuccess}
+    onError={handleGoogleError}
+  />
+</div>
     </form>
 
    

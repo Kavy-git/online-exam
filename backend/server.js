@@ -21,7 +21,6 @@ app.use(cors({
     "http://localhost:5173",
     "https://online-exam-frontend-8rqz91lyg-kavy-gits-projects.vercel.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
