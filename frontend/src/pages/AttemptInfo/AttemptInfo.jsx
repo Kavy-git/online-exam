@@ -8,6 +8,7 @@ const AttemptInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+
   const [name, setName] = useState("");
   const [regNo, setRegNo] = useState("");
   const [error, setError] = useState("");
@@ -18,6 +19,9 @@ const AttemptInfo = () => {
   const [snapshotPopup, setSnapshotPopup] = useState(false);
   const [snapshot, setSnapshot] = useState("");
   const [stream, setStream] = useState(null);
+  
+  const [loading, setLoading] = useState(false);
+
 
   /* ---------------- LOAD TEST ---------------- */
   useEffect(() => {
@@ -82,47 +86,39 @@ const AttemptInfo = () => {
     setSnapshot(imgData);
   };
 
+  setLoading(true);
   const handleStartTest = async () => {
-    if (!name || !regNo) {
-      setError("Please enter all fields.");
-      return;
-    }
-
-    if (requireCameraMic === "yes" && !permissionGranted) {
-      setError("Please allow camera & audio permissions.");
-      return;
-    }
-
-    if (requireCameraMic === "yes" && !snapshot) {
-      setError("Please take a snapshot before starting.");
-      return;
-    }
-
-    localStorage.setItem("studentName", name);
-    localStorage.setItem("regNo", regNo);
-    localStorage.setItem("testId", id);
-
-    try {
-      await axios.post(
-  `${import.meta.env.VITE_API_URL}/api/attempt`,
-  {
-    testId: id,
-    name,
-    regNo,
-    snapshot,
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  if (!name || !regNo) {
+    setError("Please enter all fields.");
+    return;
   }
-);
 
-      navigate(`/attempt-test/${id}`);
-    } catch (err) {
-      setError("Failed to save student details.");
-    }
-  };
+  try {
+    setLoading(true);
+
+    await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/attempt`,
+      {
+        testId: id,
+        name,
+        regNo,
+        snapshot,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
+
+    navigate(`/attempt-test/${id}`);
+
+  } catch (err) {
+    setError("Failed to save student details.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <motion.div
@@ -234,8 +230,12 @@ const AttemptInfo = () => {
 
 
 
-        <button className="start-test-btn" onClick={handleStartTest}>
-          Start Test
+        <button
+          className="start-test-btn"
+          onClick={handleStartTest}
+          disabled={loading}
+        >
+          {loading ? "Starting..." : "Start Test"}
         </button>
 
         {error && <p className="error">{error}</p>}
