@@ -32,14 +32,20 @@ const handleSubmit = async () => {
   }
 
   try {
-    setLoading(true); // ✅ ADD
+    setLoading(true);
 
     const res = await axios.get(
       `${import.meta.env.VITE_API_URL}/api/tests/${testCode}`
     );
 
-    const test = res.data.test;
+    const test = res.data.test || res.data;
 
+    if (!test || !test._id) {
+      setError("Invalid test data. Please try again.");
+      return;
+    }
+
+    // duration check
     if (test.testType === "duration") {
       const startDateTime = new Date(`${test.testDate}T${test.startTime}`);
       const endDateTime = new Date(`${test.testDate}T${test.endTime}`);
@@ -56,13 +62,12 @@ const handleSubmit = async () => {
       }
     }
 
-    // ✅ CORRECT NAVIGATION
     navigate(`/attempt-info/${test._id}`);
 
   } catch (err) {
     setError("Test not found. Please enter a valid code.");
   } finally {
-    setLoading(false); // ✅ ADD
+    setLoading(false);
   }
 };
 
