@@ -8,7 +8,12 @@ const AttemptInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // ✅ SAFETY CHECK
+  if (!id) {
+    return <h2>Invalid Test ID</h2>;
+  }
 
+  // ✅ STATES
   const [name, setName] = useState("");
   const [regNo, setRegNo] = useState("");
   const [error, setError] = useState("");
@@ -19,28 +24,38 @@ const AttemptInfo = () => {
   const [snapshotPopup, setSnapshotPopup] = useState(false);
   const [snapshot, setSnapshot] = useState("");
   const [stream, setStream] = useState(null);
-  
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(true);
 
   /* ---------------- LOAD TEST ---------------- */
   useEffect(() => {
     const fetchTest = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tests/${id}`);
-        const cam = res.data.test?.requireCameraMic?.toLowerCase() || "no";
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/tests/${id}`
+        );
 
+        const test = res?.data?.test || res?.data;
+
+        if (!test) {
+          setError("Test not found");
+          return;
+        }
+
+        const cam = test?.requireCameraMic?.toLowerCase() || "no";
         setRequireCameraMic(cam);
 
       } catch (err) {
-        console.error("Error loading test:", err);
+        setError("Error loading test");
+      } finally {
+        setLoading(false); // ✅ CORRECT PLACE
       }
     };
 
     fetchTest();
   }, [id]);
 
-  /* ---------------- CAMERA PERMISSION ---------------- */
+  /* ---------------- CAMERA ---------------- */
   const requestPermissions = async () => {
     try {
       const camStream = await navigator.mediaDevices.getUserMedia({
@@ -50,28 +65,26 @@ const AttemptInfo = () => {
 
       setStream(camStream);
       setPermissionGranted(true);
-      setError("");
 
       const video = document.getElementById("camVideo");
       video.srcObject = camStream;
       video.play();
-
-    } catch (err) {
-      setError("Camera & Microphone permissions are required.");
+    } catch {
+      setError("Camera & Microphone required.");
     }
   };
+
   useEffect(() => {
-  if (snapshotPopup && stream) {
-    const popupVideo = document.getElementById("popupCam");
-    if (popupVideo) {
-      popupVideo.srcObject = stream;
-      popupVideo.play();
+    if (snapshotPopup && stream) {
+      const popupVideo = document.getElementById("popupCam");
+      if (popupVideo) {
+        popupVideo.srcObject = stream;
+        popupVideo.play();
+      }
     }
-  }
-}, [snapshotPopup, stream]);
+  }, [snapshotPopup, stream]);
 
-
-  /* ---------------- TAKE SNAPSHOT ---------------- */
+  /* ---------------- SNAPSHOT ---------------- */
   const takeSnapshot = () => {
     const video = document.getElementById("camVideo");
     const canvas = document.getElementById("snapCanvas");
@@ -80,69 +93,63 @@ const AttemptInfo = () => {
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(video, 0, 0);
 
-    const imgData = canvas.toDataURL("image/png");
-    setSnapshot(imgData);
+    setSnapshot(canvas.toDataURL("image/png"));
   };
 
-  setLoading(true);
+  /* ---------------- START TEST ---------------- */
   const handleStartTest = async () => {
-  if (!name || !regNo) {
-    setError("Please enter all fields.");
-    return;
-  }
+    if (!name || !regNo) {
+      setError("Please enter all fields.");
+      return;
+    }
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/attempt`,
-      {
-        testId: id,
-        name,
-        regNo,
-        snapshot,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/attempt`,
+        { testId: id, name, regNo, snapshot },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
         }
-      }
-    );
+      );
 
-    navigate(`/attempt-test/${id}`);
+      navigate(`/attempt-test/${id}`);
 
-  } catch (err) {
-    setError("Failed to save student details.");
-  } finally {
-    setLoading(false);
+    } catch {
+      setError("Failed to save details.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ---------------- LOADING UI ---------------- */
+  if (loading) {
+    return <h2>Loading...</h2>;
   }
-};
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div className="attempt-info-container">
         <h1>Attender Details</h1>
 
-        {/* Hidden items */}
-        <video id="camVideo" autoPlay playsInline style={{ display: "none" }} />
+        <video id="camVideo" autoPlay style={{ display: "none" }} />
         <canvas id="snapCanvas" style={{ display: "none" }} />
 
         <input
           type="text"
-          placeholder="Enter Your Name"
+          placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
           type="text"
-          placeholder="Enter Register Number"
+          placeholder="Register Number"
           value={regNo}
           onChange={(e) => setRegNo(e.target.value)}
         />
@@ -151,7 +158,7 @@ const AttemptInfo = () => {
           <>
             {!permissionGranted && (
               <button onClick={requestPermissions}>
-                Allow Camera & Microphone
+                Allow Camera
               </button>
             )}
 
@@ -163,78 +170,7 @@ const AttemptInfo = () => {
           </>
         )}
 
-        {/* SNAPSHOT POPUP */}
-{snapshotPopup && (
-  <div className="snapshot-popup">
-    <div className="popup-box">
-      <h3>📸 Snapshot Capture</h3>
-
-      {/* LIVE CAMERA (only when snapshot is NOT taken) */}
-      {!snapshot && (
-        <video
-          id="popupCam"
-          autoPlay
-          playsInline
-          style={{
-            width: "100%",
-            borderRadius: "12px",
-            marginTop: "10px",
-            border: "2px solid #d0d7ff"
-          }}
-        />
-      )}
-
-      {/* SHOW SNAPSHOT ONLY AFTER TAKING */}
-      {snapshot && (
-        <img
-          src={snapshot}
-          alt="Captured"
-          style={{
-            width: "100%",
-            borderRadius: "12px",
-            marginTop: "10px",
-            border: "2px solid #d0d7ff"
-          }}
-        />
-      )}
-
-      <div className="popup-btn-row">
-
-        {/* TAKE SNAPSHOT BUTTON */}
-        {!snapshot && (
-          <button
-            className="blue-btn"
-            onClick={takeSnapshot}
-          >
-            Take Snapshot
-          </button>
-        )}
-
-        {/* RETAKE BUTTON ONLY AFTER SNAPSHOT */}
-        {snapshot && (
-          <button
-            className="green-btn"
-            onClick={() => setSnapshot("")}
-          >
-            Retake Snapshot
-          </button>
-        )}
-
-        <button className="close-btn" onClick={() => setSnapshotPopup(false)}>
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
-
-
-        <button
-          className="start-test-btn"
-          onClick={handleStartTest}
-          disabled={loading}
-        >
+        <button onClick={handleStartTest} disabled={loading}>
           {loading ? "Starting..." : "Start Test"}
         </button>
 
